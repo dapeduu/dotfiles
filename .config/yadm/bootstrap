@@ -1,7 +1,35 @@
 #! /bin/bash
 
+echo "Creating directories"
 cd "$HOME" 
-
 mkdir www
 mkdir git
 
+echo "Installing asdf"
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
+
+echo "Installing zsh stuff"
+cd "$HOME/git"
+git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git 
+
+echo "Installing apt packages"
+# Vscode
+wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+
+# Vivaldi
+wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | sudo dd of=/usr/share/keyrings/vivaldi-browser.gpg
+echo "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=$(dpkg --print-architecture)] https://repo.vivaldi.com/archive/deb/ stable main" | sudo dd of=/etc/apt/sources.list.d/vivaldi-archive.list
+
+sudo apt update
+sudo apt install software-properties-common \ 
+    apt-transport-https \
+    wgetz \
+    code \
+    vivaldi-stable
+
+echo "Installing flatpak apps"
+flatpak install flathub md.obsidian.Obsidian
+flatpak install flathub com.spotify.Client
+flatpak install flathub com.discordapp.Discord
