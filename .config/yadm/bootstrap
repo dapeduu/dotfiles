@@ -23,11 +23,7 @@ wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor
 echo "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=$(dpkg --print-architecture)] https://repo.vivaldi.com/archive/deb/ stable main" | sudo dd of=/etc/apt/sources.list.d/vivaldi-archive.list
 
 sudo apt update
-sudo apt install software-properties-common \ 
-    apt-transport-https \
-    wgetz \
-    code \
-    vivaldi-stable
+sudo apt install software-properties-common apt-transport-https code vivaldi-stable
 
 echo "Installing flatpak apps"
 flatpak install flathub md.obsidian.Obsidian
