@@ -22,10 +22,12 @@ sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/v
 wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | sudo dd of=/usr/share/keyrings/vivaldi-browser.gpg
 echo "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=$(dpkg --print-architecture)] https://repo.vivaldi.com/archive/deb/ stable main" | sudo dd of=/etc/apt/sources.list.d/vivaldi-archive.list
 
+
 sudo apt update
-sudo apt install software-properties-common apt-transport-https code vivaldi-stable
+sudo apt install software-properties-common apt-transport-https zsh code vivaldi-stable typora 
 
 echo "Installing flatpak apps"
-flatpak install flathub md.obsidian.Obsidian
-flatpak install flathub com.spotify.Client
-flatpak install flathub com.discordapp.Discord
+flatpak install flathub md.obsidian.Obsidian -y
+flatpak install flathub com.spotify.Client -y 
+flatpak install flathub com.discordapp.Discord -y
+flatpak install flathub io.typora.Typora -y
