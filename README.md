@@ -10,3 +10,7 @@ This repository contains all my **dotfiles**, and a script for a fast developmen
 4. Make **zsh** the default shell `sudo chsh -s $(which zsh)`
 5. Download a [Nerd Font](https://www.nerdfonts.com) to be able to use icons
 6. And we're good to go :)
+
+Or
+
+Just run: `curl -Sl https://github.com/dapeduu/dotfiles/blob/master/.config/yadm/bootstrap-helper | bash`

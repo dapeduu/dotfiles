@@ -1,0 +1,14 @@
+#! /bin/bash
+
+# This script installs yadm and clone the repo automatically
+
+echo $PWD
+
+if [[ $PWD != /home/$USER ]] ;
+then
+  echo "You should be at your home directory"
+  exit 1
+fi
+
+sudo apt install yadm
+yadm clone https://github.com/dapeduu/dotfiles.git
