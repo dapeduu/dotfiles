@@ -19,15 +19,19 @@ wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add
 sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 
 # Vivaldi
-wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | sudo dd of=/usr/share/keyrings/vivaldi-browser.gpg
-echo "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=$(dpkg --print-architecture)] https://repo.vivaldi.com/archive/deb/ stable main" | sudo dd of=/etc/apt/sources.list.d/vivaldi-archive.list
-
+sudo sh -c 'echo "deb http://repo.vivaldi.com/stable/deb/ stable main" >> /etc/apt/sources.list'
+wget -q -O - http://repo.vivaldi.com/stable/linux_signing_key.pub | sudo apt-key add -
 
 sudo apt update
-sudo apt install software-properties-common apt-transport-https zsh code vivaldi-stable typora 
+sudo apt install software-properties-common apt-transport-https zsh code vivaldi-stable zsh-syntax-highlighting
 
 echo "Installing flatpak apps"
 flatpak install flathub md.obsidian.Obsidian -y
 flatpak install flathub com.spotify.Client -y 
 flatpak install flathub com.discordapp.Discord -y
-flatpak install flathub io.typora.Typora -y
+
+echo "Installing fonts"
+fc-cache -vf
+
+chsh -s $(which zsh)
+echo "Please, logout to use zsh as default shell"
