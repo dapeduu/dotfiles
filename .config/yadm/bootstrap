@@ -29,6 +29,7 @@ echo "Installing flatpak apps"
 flatpak install flathub md.obsidian.Obsidian -y
 flatpak install flathub com.spotify.Client -y 
 flatpak install flathub com.discordapp.Discord -y
+flatpak install flathub rest.insomnia.Insomnia -y
 
 echo "Installing fonts"
 fc-cache -vf

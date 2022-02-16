@@ -13,4 +13,4 @@ This repository contains all my **dotfiles**, and a script for a fast developmen
 
 Or
 
-Just run: `curl -Sl https://github.com/dapeduu/dotfiles/blob/master/.config/yadm/bootstrap-helper | bash`
+Just run: `curl -Sl https://raw.githubusercontent.com/dapeduu/dotfiles/master/.config/yadm/bootstrap-helper | bash`
