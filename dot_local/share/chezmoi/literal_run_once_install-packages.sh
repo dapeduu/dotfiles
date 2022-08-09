@@ -4,6 +4,7 @@ main() {
   apt_update
   install_vscode
   install_zsh
+  install_oh_my_zsh
 }
 
 apt_update() {
@@ -23,6 +24,7 @@ install_vscode() {
 
 install_zsh() {
   sudo apt-get install zsh
+  chsh -s $(which zsh) # Make it the default shell
 }
 
 # https://github.com/ohmyzsh/ohmyzsh#unattended-install
