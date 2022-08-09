@@ -29,6 +29,10 @@ install_zsh() {
 
 # https://github.com/ohmyzsh/ohmyzsh#unattended-install
 install_oh_my_zsh() { 
+  OH_MY_ZSH=~/.oh-my-zsh
+  if [-d "$OH_MY_ZSH" ]; then return; fi
+
+  sudo apt-get install git -y
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 }
 
