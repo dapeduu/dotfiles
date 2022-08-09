@@ -5,6 +5,7 @@ main() {
   install_vscode
   install_zsh
   install_oh_my_zsh
+  install_zsh_plugins
 }
 
 apt_update() {
@@ -30,10 +31,15 @@ install_zsh() {
 # https://github.com/ohmyzsh/ohmyzsh#unattended-install
 install_oh_my_zsh() { 
   OH_MY_ZSH=~/.oh-my-zsh
-  if [-d "$OH_MY_ZSH" ]; then return; fi
+  if [-d "$OH_MY_ZSH" ]; then 
+    sudo apt-get install git -y
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  fi
+}
 
-  sudo apt-get install git -y
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+install_zsh_plugins() {
+  git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 }
 
 main "$@"; exit
