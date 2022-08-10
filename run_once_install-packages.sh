@@ -12,8 +12,8 @@ apt_update() {
  sudo apt-get update
 }
 
-is_package_installed(pkg) {
-  REQUIRED_PKG=pkg
+is_package_installed($pkg) {
+  REQUIRED_PKG=$pkg
   PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed")
   return "" != "$PKG_OK"
 }
