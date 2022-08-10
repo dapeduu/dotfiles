@@ -13,17 +13,22 @@ apt_update() {
 }
 
 is_package_installed() {
-  REQUIRED_PKG=$1
-  PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed")
-  return "" != "$PKG_OK"
+  REQUIRED_PKG="$1"
+  PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed") 
+  if [ "" != "$PKG_OK" ]; then
+    echo "$REQUIRED_PKG already installed"
+    return
+  fi
 }
 
 # https://code.visualstudio.com/docs/setup/linux
 install_vscode() {
   echo "Running install vscode"
 
-  if [is_package_installed("code")]; then
-    echo "Vscode already installed"
+  REQUIRED_PKG="code"
+  PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed") 
+  if [ "" != "$PKG_OK" ]; then
+    echo "$REQUIRED_PKG already installed"
     return
   fi
 
@@ -39,8 +44,10 @@ install_vscode() {
 install_zsh() {
   echo "Running install_zsh"
 
-  if [is_package_installed("zsh")]; then
-    echo "Zsh already installed"
+  REQUIRED_PKG="zsh"
+  PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed") 
+  if [ "" != "$PKG_OK" ]; then
+    echo "$REQUIRED_PKG already installed"
     return
   fi
 
