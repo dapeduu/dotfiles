@@ -12,14 +12,17 @@ apt_update() {
  sudo apt-get update
 }
 
+is_package_installed?(pkg) {
+  REQUIRED_PKG=pkg
+  PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed")
+  return "" != "$PKG_OK"
+}
+
 # https://code.visualstudio.com/docs/setup/linux
 install_vscode() {
   echo "Running install vscode"
 
-  REQUIRED_PKG="code"
-  PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed")
-  echo Checking for $REQUIRED_PKG: $PKG_OK
-  if [ "" != "$PKG_OK" ]; then
+  if [is_package_installed("code")]; then
     echo "Vscode already installed"
     return
   fi
@@ -36,6 +39,11 @@ install_vscode() {
 install_zsh() {
   echo "Running install_zsh"
 
+  if [is_package_installed("zsh")]; then
+    echo "Zsh already installed"
+    return
+  fi
+
   sudo apt-get install zsh -y
   chsh -s $(which zsh) # Make it the default shell
 }
@@ -45,7 +53,7 @@ install_oh_my_zsh() {
   echo "Running install_oh_my_zsh"
 
   OH_MY_ZSH=~/.oh-my-zsh
-  if [[-d "$OH_MY_ZSH" ]]; then 
+  if [ -d "$OH_MY_ZSH" ]; then 
     echo "oh-my-zsh already installed"
     return
   fi
@@ -60,13 +68,13 @@ install_zsh_plugins() {
   AUTOSUGGESTIONS_DIR=$ZSH_CUSTOM/plugins/zsh-autosuggestions
   SYNTAX_HIGHLIGHT_DIR=$ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
-  if [ ![ -d "$AUTOSUGGESTIONS_DIR"] ]; then
+  if [ ! -d "$AUTOSUGGESTIONS_DIR" ]; then
     sudo git clone https://github.com/zsh-users/zsh-autosuggestions.git 
   else 
     echo "autosuggestions plugin already installed"
   fi
 
-  if [ ![ -d "$SYNTAX_HIGHLIGHT_DIR"] ]; then
+  if [ ! -d "$SYNTAX_HIGHLIGHT_DIR" ]; then
     sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
   else 
     echo "syntax_highligh plugin already installed"
@@ -78,7 +86,7 @@ install_powerlevel10k() {
 
   DIR=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
-  if [[-d "$DIR"]]; then
+  if [ -d "$DIR" ]; then
     echo "powerlevel10k already installed"
     return
   fi

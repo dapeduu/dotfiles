@@ -19,7 +19,7 @@ install_vscode() {
   REQUIRED_PKG="code"
   PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed")
   echo Checking for $REQUIRED_PKG: $PKG_OK
-  if [ !("" = "$PKG_OK") ]; then
+  if [ "" != "$PKG_OK" ]; then
     echo "Vscode already installed"
     return
   fi
